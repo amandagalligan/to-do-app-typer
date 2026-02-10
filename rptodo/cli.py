@@ -5,7 +5,7 @@ import typer
 from pathlib import Path
 from typing_extensions import Annotated
 
-from rptodo import ERRORS, __app_name__, __version__, config, database
+from rptodo import ERRORS, __app_name__, __version__, config, database, rptodo
 
 app = typer.Typer()
 
@@ -39,6 +39,23 @@ def init(
         raise typer.Exit(1)
     else:
         typer.secho(f"The to-do database is {db_path}", fg=typer.colors.GREEN)
+
+
+# Access the ToDoer class from our cli application with this helper function
+# This function will instanciate an instace of the rptodo.ToDoer
+def get_todoer() -> rptodo.ToDoer:
+    if config.CONFIG_FILE_PATH.exists():
+        db_path = database.get_database_path(config.CONFIG_DATA_PATH)
+    else:
+        typer.secho(
+            'config file not found. Please run "rptodo init', fg=typer.colors.RED
+        )
+        raise typer.Exit(1)
+    if db_path.exists():
+        return rptodo.ToDoer(db_path)
+    else:
+        typer.secho('Database not found. Please run "rptodo init', fg=typer.colors.RED)
+        raise typer.Exit(1)
 
 
 # typer.echo(...): If the flag was used, it prints the application's
