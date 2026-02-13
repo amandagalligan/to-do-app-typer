@@ -2,15 +2,12 @@
 
 import configparser
 from pathlib import Path
-import typer
 
 from rptodo import (
-    DB_READ_ERROR,
     DB_WRITE_ERROR,
     DIR_ERROR,
     FILE_ERROR,
     SUCCESS,
-    __app_name__,
 )
 
 # Go two parent directories up to project root directory
