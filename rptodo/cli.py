@@ -119,6 +119,26 @@ def list_all() -> None:
         typer.secho("-" * len(headers) + "", fg=typer.colors.BLUE)
 
 
+@app.command(name="complete")
+def set_done(
+    todo_id: Annotated[int, typer.Argument(..., help="The to-do ID to update")],
+) -> None:
+    """Complete to-do by setting is done using to-do ID"""
+    todoer = get_todoer()
+    todo, error = todoer.set_done(todo_id)
+    if error:
+        typer.secho(
+            f'Completing to-do #"{todo_id}" failed with "{ERRORS[error]}"',
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
+    else:
+        typer.secho(
+            f""" to-do #{todo_id} "{todo["Description"]}" completed!""",
+            fg=typer.colors.GREEN,
+        )
+
+
 # typer.echo(...): If the flag was used, it prints the application's
 # name and version to the terminal (e.g., "rptodo v 0.1.0").
 # In short, this is the function that makes a --version option work.

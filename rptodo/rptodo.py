@@ -3,7 +3,7 @@
 from typing import Any, NamedTuple
 from pathlib import Path
 from rptodo.database import DatabaseHandler
-from rptodo import DB_READ_ERROR
+from rptodo import DB_READ_ERROR, ID_ERROR
 
 # The todo data data model will be represented as follows:
 # to = {
@@ -57,3 +57,22 @@ class ToDoer:
         """return the current to-do list"""
         read = self._db_handler.read_todos()
         return read.todo_list
+
+    def set_done(self, todo_id: int) -> CurrentToDo:
+        """Take to-do item id and mark as done if applicable"""
+        # Read all to-to items into a list, identify the item you are trying to update
+        # and once updated write back a new updated list to database
+        read = self._db_handler.read_todos()
+        if read.error:
+            return CurrentToDo({}, read.error)
+
+        try:
+            todo = read.todo_list[todo_id - 1]  # As we're starting the list at id:1
+            # but python counts from 0 for first item so we have to subtract 1
+        except IndexError:
+            return CurrentToDo({}, ID_ERROR)
+
+        todo["Done"] = True
+        write = self._db_handler.write_todos(read.todo_list)
+
+        return CurrentToDo(todo, write.error)
