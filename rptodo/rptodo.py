@@ -52,3 +52,8 @@ class ToDoer:
         write = self._db_handler.write_todos(read.todo_list)
         # Return the container which holds the todo list and the error code
         return CurrentToDo(todo, write.error)
+
+    def get_todo_list(self) -> list[dict[str, Any]]:
+        """return the current to-do list"""
+        read = self._db_handler.read_todos()
+        return read.todo_list

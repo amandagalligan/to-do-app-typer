@@ -86,6 +86,39 @@ def add(
         )
 
 
+@app.command(name="list")
+def list_all() -> None:
+    """List all to-do"""
+    todoer = get_todoer()
+    todo_list = todoer.get_todo_list()
+    if len(todo_list) == 0:
+        typer.secho("There are no to-do items in the database", fg=typer.colors.RED)
+        raise typer.Exit()
+    typer.secho("\nTo-Do list:\n", fg=typer.colors.BLUE, bold=True)
+    columns = (
+        "ID.  ",
+        "| Priority  ",
+        "| Done  ",
+        "| Description  ",
+    )
+    headers = " ".join(columns)
+    typer.secho(headers, fg=typer.colors.BLUE, bold=True)
+    typer.secho("-" * len(headers), fg=typer.colors.BLUE)
+    # Loops through each todo item in todo_list. enumerate(..., 1) assigns a sequential number to id, starting from 1.
+    for id, todo in enumerate(todo_list, 1):
+        desc, priority, done = todo.values()
+
+        typer.secho(
+            f"{id}{(len(columns[0]) - len(str(id))) * ' '}"
+            f"| ({priority}){(len(columns[1]) - len(str(priority)) - 2) * ' '}"
+            f"| {done}{(len(columns[2]) - len(str(done)) - 1) * ' '}"
+            f"| {desc}",
+            fg=typer.colors.BLUE,
+        )
+
+        typer.secho("-" * len(headers) + "", fg=typer.colors.BLUE)
+
+
 # typer.echo(...): If the flag was used, it prints the application's
 # name and version to the terminal (e.g., "rptodo v 0.1.0").
 # In short, this is the function that makes a --version option work.
