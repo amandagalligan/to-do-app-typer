@@ -1,10 +1,26 @@
-[build-system]
-requires = ["setuptools", "setuptools-scm"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "rptodo"
-version = "1.0.0"
+name = "to-do-app-typer"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "amandagalligan",email = "ephemerism@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "typer (>=0.24.1,<0.25.0)",
+    "typing_extensions (>=4.15.0,<5.0.0)",
+]
 
 [project.scripts]
 rptodo = "rptodo.__main__:main"
+
+[tool.poetry]
+packages = [
+    { include = "rptodo" }
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
