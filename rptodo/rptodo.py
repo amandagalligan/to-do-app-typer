@@ -15,7 +15,8 @@ from rptodo import DB_READ_ERROR, ID_ERROR
 
 class CurrentToDo(NamedTuple):
     """Python subclass of NamedTuple that holds todo dictionary and error code.
-    This acts like a container where we couple the status report with each attempt to add item to the todo list
+    This acts like a container where we couple the status report with
+    each attempt to add item to the todo list
     """
 
     todo: dict[str, Any]
@@ -32,7 +33,8 @@ class ToDoer:
 
     def add(self, description: list[str], priority: int = 2) -> CurrentToDo:
         """Add a new to-do to the database."""
-        # As it'll be received as a list we need to join. In addition we can check if it ends with . and if
+        # As it'll be received as a list we need to join.
+        # In addition we can check if it ends with . and if
         # not append a . to end.
         description_text = " ".join(description)
         if not description_text.endswith("."):

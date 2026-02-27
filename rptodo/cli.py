@@ -104,7 +104,8 @@ def list_all() -> None:
     headers = " ".join(columns)
     typer.secho(headers, fg=typer.colors.BLUE, bold=True)
     typer.secho("-" * len(headers), fg=typer.colors.BLUE)
-    # Loops through each todo item in todo_list. enumerate(..., 1) assigns a sequential number to id, starting from 1.
+    # Loops through each todo item in todo_list. enumerate(..., 1)
+    # assigns a sequential number to id, starting from 1.
     for id, todo in enumerate(todo_list, 1):
         desc, priority, done = todo.values()
 
