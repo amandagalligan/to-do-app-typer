@@ -47,9 +47,7 @@ def get_todoer() -> rptodo.ToDoer:
     if config.CONFIG_FILE_PATH.exists():
         db_path = database.get_database_path(config.CONFIG_FILE_PATH)
     else:
-        typer.secho(
-            'config file not found. Please run "rptodo init', fg=typer.colors.RED
-        )
+        typer.secho('config file not found. Please run "rptodo init', fg=typer.colors.RED)
         raise typer.Exit(1)
     if db_path.exists():
         return rptodo.ToDoer(db_path)
@@ -60,27 +58,21 @@ def get_todoer() -> rptodo.ToDoer:
 
 @app.command()
 def add(
-    description: Annotated[
-        list[str], typer.Argument(..., help="The to-do item description")
-    ],
+    description: Annotated[list[str], typer.Argument(..., help="The to-do item description")],
     priority: Annotated[
         int,
-        typer.Option(
-            "---priority", "-p", min=1, max=3, help="The to-do item priority value"
-        ),
+        typer.Option("---priority", "-p", min=1, max=3, help="The to-do item priority value"),
     ] = 2,
 ) -> None:
     """Add new to-do to the database"""
     todoer = get_todoer()
     todo, error = todoer.add(description, priority)
     if error:
-        typer.secho(
-            f'Adding the error code failed with "{ERRORS[error]}"', fg=typer.colors.RED
-        )
+        typer.secho(f'Adding the error code failed with "{ERRORS[error]}"', fg=typer.colors.RED)
         raise typer.Exit(1)
     else:
         typer.secho(
-            f""" to-do: "{todo['Description']} was added"""
+            f""" to-do: "{todo["Description"]} was added"""
             f""" with priority: "{priority}""",
             fg=typer.colors.GREEN,
         )
