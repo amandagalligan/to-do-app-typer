@@ -1,9 +1,10 @@
 """Module provides the RP to-do model controller."""
 
-from typing import Any, NamedTuple
 from pathlib import Path
-from rptodo.database import DatabaseHandler
+from typing import Any, NamedTuple
+
 from rptodo import DB_READ_ERROR, ID_ERROR
+from rptodo.database import DatabaseHandler
 
 # The todo data data model will be represented as follows:
 # to = {

@@ -1,9 +1,9 @@
 """This module provides the RP to-do CLI."""
 
-from typing import Optional
-import typer
 from pathlib import Path
-from typing_extensions import Annotated
+from typing import Annotated
+
+import typer
 
 from rptodo import ERRORS, __app_name__, __version__, config, database, rptodo
 
@@ -155,7 +155,7 @@ def _version_callback(value: bool) -> None:
 @app.callback()
 def main(
     version: Annotated[
-        Optional[bool],
+        bool | None,
         typer.Option(
             "--version",
             "-v",

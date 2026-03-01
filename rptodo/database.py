@@ -1,11 +1,11 @@
 """Module provides RP to-do database functionality"""
 
 import configparser
-from pathlib import Path
 import json
+from pathlib import Path
 from typing import Any, NamedTuple
 
-from rptodo import DB_WRITE_ERROR, DB_READ_ERROR, SUCCESS, JSON_ERROR
+from rptodo import DB_READ_ERROR, DB_WRITE_ERROR, JSON_ERROR, SUCCESS
 
 
 class DBResponse(NamedTuple):
