@@ -5,12 +5,10 @@
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnSave": true
     },
-    "flake8.args": [
-    "--max-line-length=120"
-    ],
+    "ruff.lineLength": 100,
     "yaml.format.enable": true,
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml",
