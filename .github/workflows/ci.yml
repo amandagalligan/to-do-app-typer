@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install
-      - name: Run flake8
-        run: poetry run flake8 rptodo
-      - name: Check black formatting
-        run: poetry run black --check rptodo
+      - name: Run ruff lint
+        run: poetry run ruff check rptodo
+      - name: Check ruff formatting
+        run: poetry run ruff format --check rptodo
